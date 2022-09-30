@@ -20,42 +20,8 @@ app.use(bodyParser.json());
 const client = new Web3Storage({ token: process.env.WEB3_STORAGE_TOKEN ?? "" });
 
 app.get("/getAllBlogsByUserAddress", async (req: Request, res: Response) => {
-  try {
-    const { query } = req ?? {};
-    const { address } = query ?? {};
  
-    let list :any =[] 
-    await axios.get(`https://songbird-explorer.flare.network/api?module=account&action=tokenlist&address=${address}`,{
-      responseType: 'json'
-    })
-.then(async (res:any) => {
-if(res.status === 200) { 
-  console.log(JSON.stringify(res.status))
-const lista = await res.data.result.filter( (item:any) => item.contractAddress==="0xd4d427D30abA626c138B49eFeC799f933B20F35f".toLowerCase())
 
-for(let i=0 ; i < parseInt(lista[0].balance) ; i++){
-const options44 = {
-  contractAddress: '0xFF71656621BB98E0afB3Bac0d64A2bf7BeFA7C64',
-  functionName: 'tokenOfOwnerByIndex',
-  abi: cootieAbi,
-  params: {
-    owner:address,
-    index:i
-  }
-};
- const respuesta= await Moralis.executeFunction(options44) 
- console.log(JSON.stringify(respuesta))
-list=[...list,parseInt(respuesta.toString())]
-}
-
-}
-
-})
-
-    res.send([...list]);
-  } catch (e) {
-    res.status(400).send(e);
-  }
 });
 
 app.get("/getAllBlogs", async (req: Request, res: Response) => {
