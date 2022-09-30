@@ -34,7 +34,7 @@ app.post("/requestAuth", async (req: Request, res: Response) => {
 
     const response = await Moralis.Auth.requestMessage({
       domain: "web3.medium",
-      chain: EvmChain.SONGBIRD,
+      chain: 19,
       address,
       network: "evm",
       statement: "Please sign this message to confirm your identity.",
